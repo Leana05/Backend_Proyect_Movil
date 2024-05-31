@@ -32,3 +32,28 @@ export const createNewUser = async (req, res) => {
     });
   }
 };
+
+export const updateInfoUser = async (req, res) => {
+  const { Cedula } = req.params;
+  const { Nombre, Apellido, FechaNacimiento, Direccion, Celular, Correo, contraseña } = req.body;
+  try {
+    // throw new Error(':C')
+    const [result] = await pool.query(
+      'UPDATE tblusuario SET Nombre = IFNULL(?, Nombre), Apellido = IFNULL(?, Apellido), FechaNacimiento = IFNULL(?, FechaNacimiento), Direccion = IFNULL(?, Direccion), Celular = IFNULL(?, Celular), Correo = IFNULL(?, Correo), contraseña = IFNULL(?, contraseña), Foto = IFNULL(?, Foto) WHERE Cedula = ?',
+      [Nombre, Apellido, FechaNacimiento, Direccion, Celular, Correo, contraseña, Foto]
+    );
+    console.log(result);
+
+    if (result.affectedRows === 0)
+      return res.status(404).json({
+        message: 'User not found',
+      });
+
+    const [rows] = await pool.query('SELECT * FROM tblusuario WHERE Cedula = ?', [Cedula]);
+    res.json(rows[0]);
+  } catch (error) {
+    return res.status(500).json({
+      message: 'Something goes wrong',
+    });
+  }
+};
