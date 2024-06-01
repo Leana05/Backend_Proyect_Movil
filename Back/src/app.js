@@ -4,6 +4,7 @@ import indexRoutes from './routes/index.routes.js';
 import mascotaRoutes from './routes/mascota.routes.js';
 import appointmentRoutes from "./routes/appointment.routes.js";
 import orderRoutes from './routes/order.routes.js';
+import detCarritoRoutes from './routes/detallecarrito.routes.js';
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(indexRoutes);
 app.use(mascotaRoutes);
 app.use(appointmentRoutes);
 app.use(orderRoutes);
+app.use(detCarritoRoutes);
 
 app.use((req, res, next) => {
     res.status(404).json({

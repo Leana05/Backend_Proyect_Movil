@@ -46,7 +46,6 @@ export const createOrder = async (req, res) => {
 export const deleteOrder = async (req, res) => {
     try {
         const [result] = await pool.query('DELETE FROM tblorden WHERE IdOrden = ?', [req.params.idOrden]);
-        console.log(result);
 
         if (result.affectedRows <= 0)
         return res.status(404).json({
@@ -66,7 +65,7 @@ export const deleteOrder = async (req, res) => {
 export const updateStateOrder = async (req, res) => {
     const { idOrden } = req.params;
     const { IdEstado } = req.body;
-    console.log(req.body.IdEstado, req.params.IdOrden);
+
     try {
         // throw new Error(':C')
         const [result] = await pool.query('UPDATE tblorden SET IdEstado = ?  WHERE IdOrden = ?', [IdEstado, idOrden]);

@@ -57,9 +57,7 @@ export const createNewUser = async (req, res) => {
 // Esta función nos permite actializar parcialmente la información de un usuario
 //  El pacth nos permite actualizar la información que deseamos, sin tener que vernos obligados a actualizar todos los campos
 export const updateInfoUser = async (req, res) => {
-  console.log(req.params);
   const Cedula = req.params.id;
-  console.log(Cedula)
   const { Nombre, Apellido, FechaNacimiento, Direccion, Celular, Correo, contraseña, Foto } = req.body;
   try {
     // throw new Error(':C')
