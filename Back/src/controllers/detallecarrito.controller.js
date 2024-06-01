@@ -38,12 +38,12 @@ export const deleteDetCarrito = async (req, res) => {
 
 export const updateDetCarrito = async (req, res) => {
     const { idDetCarrito } = req.params;
-    const { Cantidad, IdCarrito, IdProducto } = req.body;
+    const { Cantidad } = req.body;
 
     try {
         const [result] = await pool.query(
-            'UPDATE tbldetallecarrito SET Cantidad = IFNULL(?, Cantidad), IdCarrito = IFNULL(?, IdCarrito), IdProducto = IFNULL(?, IdProducto) WHERE idDetCarrito = ?',
-            [Cantidad, IdCarrito, IdProducto, idDetCarrito]
+            'UPDATE tbldetallecarrito SET Cantidad = IFNULL(?, Cantidad) WHERE idDetCarrito = ?',
+            [Cantidad, idDetCarrito]
         );
         console.log(result);
 
