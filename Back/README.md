@@ -8,6 +8,7 @@ cd Back
 
 ## Instalación
 ```
+npm install express
 npm install mysql2
 npm install nodemon -D
 npm install morgan
