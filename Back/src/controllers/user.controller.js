@@ -33,34 +33,26 @@ export const getUser = async (req, res) => {
 
 // Esta función nos permite crear un usuario
 export const createNewUser = async (req, res) => {
-  const { cedula, nombre, apellido, fechaNacimiento, direccion, celular, correo, contrasena} = req.body; //Extraemos la informacion de la solicitud que hizo el cliente
+  const { cedula, nombre, apellido, fechaNacimiento, direccion, celular, correo, contrasena, foto} = req.body;
   try {
-    console.log(req.body);
-    // const [rows] = await pool.query(
-    //   'INSERT INTO tblusuario(cedula, nombre, apellido, fechaNacimiento, direccion, celular, correo, contrasena, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?)',
-    //   [cedula, nombre, apellido, fechaNacimiento, direccion, celular, correo, contrasena, foto]);
-    const [procedureResult] = await pool.query('Call spInsert(?, ?, ?, ?, ?, ?, ?, ?)', [
-      cedula,
+    const [rows] = await pool.query(
+      'Call spInsertUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [cedula, nombre, apellido, fechaNacimiento, direccion, celular, correo, contrasena, foto]
+    );
+
+    res.send({
       nombre,
       apellido,
       fechaNacimiento,
-      direccion,
-      celular,
-      correo,
-      contrasena,
-    ]);
-    // Revisa si se obtuvo un resultado
-    if (procedureResult.affectedRows === 0) {
-      return res.status(404).json({ message: 'No se pudo insertar el usuario' });
-    }
+    });
 
-    res.send(procedureResult);
   } catch (error) {
     return res.status(500).json({
-      message: 'Aqui estoy',
+      message: 'Something goes wrong',
     });
   }
 };
+
 
 //  El pacth nos permite actualizar la información que deseamos, sin tener que vernos obligados a actualizar todos los campos
 export const updateInfoUser = async (req, res) => {
