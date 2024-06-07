@@ -14,7 +14,7 @@ app.use(express.json()); //Nos ayuda a tranformar las solicitudes a Json
 
 app.use('/SignUp', userRoutes);
 app.use('/Pets',mascotaRoutes);
-app.use(orderRoutes);
+app.use('/Orden',orderRoutes);
 app.use(detCarritoRoutes);
 app.use('/Shop',productoRoutes);
 app.use('/Cart',detOrdenRoutes);

@@ -36,17 +36,6 @@ CREATE TABLE tblMascota
 	FOREIGN KEY (cedula) REFERENCES tblUsuario (cedula) ON DELETE CASCADE
 );
 
-CREATE TABLE tblCita
-(
-	idCitas int AUTO_INCREMENT PRIMARY KEY,
-	fecha varchar(20) NOT NULL,
-	hora varchar(20) NOT NULL,
-	cedula int NOT NULL,
-	idMascota int NOT NULL,
-	FOREIGN KEY (cedula) REFERENCES tblUsuario (cedula) ON DELETE CASCADE,
-	FOREIGN KEY (idMascota) REFERENCES tblMascota (idMascota) ON DELETE NO ACTION
-);
-
 CREATE TABLE tblOrden
 (
 	idOrden int AUTO_INCREMENT PRIMARY KEY,

@@ -16,7 +16,7 @@ export const getUsers = async (req, res) => {
 // Con esta función consultados un usuario por su Cedula
 export const getUser = async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT * FROM tblusuario WHERE cedula = ?', [req.params.id]);
+    const [rows] = await pool.query('SELECT * FROM tblusuario WHERE cedula = ?', [req.params.cedula]);
 
     if (rows.length <= 0)
       return res.status(404).json({
@@ -56,7 +56,7 @@ export const createNewUser = async (req, res) => {
 
 //  El pacth nos permite actualizar la información que deseamos, sin tener que vernos obligados a actualizar todos los campos
 export const updateInfoUser = async (req, res) => {
-  const cedula = req.params.id;
+  const cedula = req.params.cedula;
   const { nombre, apellido, fechaNacimiento, direccion, celular, correo, contrasena, foto } = req.body;
   try {
     // throw new Error(':C')
@@ -83,7 +83,7 @@ export const updateInfoUser = async (req, res) => {
 // Función para eliminar toda la información relacionada con el usuario
 export const deleteUser = async (req, res) => {
   try {
-    const [result] = await pool.query('DELETE FROM tblusuario WHERE cedula = ?', [req.params.id]);
+    const [result] = await pool.query('DELETE FROM tblusuario WHERE cedula = ?', [req.params.cedula]);
     console.log(result);
 
     if (result.affectedRows <= 0)

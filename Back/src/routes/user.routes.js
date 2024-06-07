@@ -11,12 +11,12 @@ const router = Router();
 
 router.get('/login/users', getUsers);
 
-router.get('/login/user/:id', getUser);
+router.get('/login/user/:cedula', getUser);
 
 router.post('/login/register', createNewUser)
 
-router.patch('/login/user/:id', updateInfoUser)
+router.patch('/login/user/:cedula', updateInfoUser)
 
-router.delete('/login/user/:id', deleteUser)
+router.delete('/login/user/:cedula', deleteUser)
 
 export default router;

@@ -12,21 +12,3 @@ export const getDetalleOrden = async (req, res) => {
         });
     }
 };
-
-
-// Consultar la información de detalle de orden especifico
-export const getDetOrden = async (req, res) => {
-    try {
-        const [rows] = await pool.query('SELECT * FROM tbldetalleOrden WHERE idDetOrden = ?', [req.params.idDetOrden])
-
-        if (rows.length <= 0)
-            return res.status(404).json({
-                message: 'Detalle orden not found'
-            })
-        res.json(rows);
-    } catch (error) {
-        return res.status(500).json({
-            message: 'Something goes wrong'
-        })
-    }
-};
