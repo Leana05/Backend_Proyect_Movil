@@ -8,12 +8,13 @@ cd Back
 
 ## Instalación
 ```
+npm install -y
 npm install express
 npm install mysql2
 npm install nodemon -D
 npm install morgan
 npm install dotenv
-
+npm install cors
 ```
 
 ## Configuración
