@@ -2,8 +2,9 @@ import { pool } from '../database/db.js';
 
 // Esta función nos valida si un usuario esta en la base de datos
 export const getValUser = async (req, res) => {
-    const {correo} = req.body
-    const {contrasena} = req. body
+    const {correo} = req.params
+    const {contrasena} = req. params
+    console.log(correo,contrasena)
     try {
         const [rows] = await pool.query('SELECT cedula FROM tblUsuario WHERE correo = ? AND contrasena = ?', [
           correo,
