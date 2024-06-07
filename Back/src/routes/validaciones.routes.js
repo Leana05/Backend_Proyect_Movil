@@ -6,7 +6,7 @@ import {
 
 const router = Router();
 
-router.get('/login/valiUser', getValUser);
+router.get('/login/valiUser/:correo/:contrasena', getValUser);
 
 router.get('/cart/:cedula', getCartProducts);
 
