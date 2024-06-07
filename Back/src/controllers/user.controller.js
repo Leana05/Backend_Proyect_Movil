@@ -16,8 +16,7 @@ export const getUsers = async (req, res) => {
 // Con esta función consultados un usuario por su Cedula
 export const getUser = async (req, res) => {
   try {
-    console.log(req.params.id); //me devuelve el id que consultaron en la URL
-    const [rows] = await pool.query('SELECT * FROM tblusuario WHERE Cedula = ?', [req.params.id]);
+    const [rows] = await pool.query('SELECT * FROM tblusuario WHERE cedula = ?', [req.params.id]);
 
     if (rows.length <= 0)
       return res.status(404).json({
@@ -34,19 +33,19 @@ export const getUser = async (req, res) => {
 
 // Esta función nos permite crear un usuario
 export const createNewUser = async (req, res) => {
-  const { Cedula, Nombre, Apellido, FechaNacimiento, Direccion, Celular, Correo, contraseña } = req.body; //Extraemos la informacion de la solicitud que hizo el cliente
-  
+  const { cedula, nombre, apellido, fechaNacimiento, direccion, celular, correo, contrasena, foto} = req.body;
   try {
     const [rows] = await pool.query(
-      'INSERT INTO tblusuario(Cedula, Nombre, Apellido, FechaNacimiento, Direccion, Celular, Correo, contraseña) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [Cedula, Nombre, Apellido, FechaNacimiento, Direccion, Celular, Correo, contraseña]);
+      'Call spInsertUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [cedula, nombre, apellido, fechaNacimiento, direccion, celular, correo, contrasena, foto]
+    );
 
     res.send({
-      id: rows.insertId,
-      Cedula,
-      Nombre,
-      contraseña,
+      nombre,
+      apellido,
+      fechaNacimiento,
     });
+
   } catch (error) {
     return res.status(500).json({
       message: 'Something goes wrong',
@@ -54,16 +53,16 @@ export const createNewUser = async (req, res) => {
   }
 };
 
-// Esta función nos permite actializar parcialmente la información de un usuario
+
 //  El pacth nos permite actualizar la información que deseamos, sin tener que vernos obligados a actualizar todos los campos
 export const updateInfoUser = async (req, res) => {
-  const Cedula = req.params.id;
-  const { Nombre, Apellido, FechaNacimiento, Direccion, Celular, Correo, contraseña, Foto } = req.body;
+  const cedula = req.params.id;
+  const { nombre, apellido, fechaNacimiento, direccion, celular, correo, contrasena, foto } = req.body;
   try {
     // throw new Error(':C')
     const [result] = await pool.query(
-      'UPDATE tblusuario SET Nombre = IFNULL(?, Nombre), Apellido = IFNULL(?, Apellido), FechaNacimiento = IFNULL(?, FechaNacimiento), Direccion = IFNULL(?, Direccion), Celular = IFNULL(?, Celular), Correo = IFNULL(?, Correo), contraseña = IFNULL(?, contraseña), Foto = IFNULL(?, Foto) WHERE Cedula = ?',
-      [Nombre, Apellido, FechaNacimiento, Direccion, Celular, Correo, contraseña, Foto, Cedula]
+      'UPDATE tblusuario SET nombre = IFNULL(?, nombre), apellido = IFNULL(?, apellido), fechaNacimiento = IFNULL(?, fechaNacimiento), direccion = IFNULL(?, direccion), celular = IFNULL(?, celular), correo = IFNULL(?, correo), contrasena = IFNULL(?, contrasena), foto = IFNULL(?, foto) WHERE cedula = ?',
+      [nombre, apellido, fechaNacimiento, direccion, celular, correo, contrasena, foto, cedula]
     );
     console.log(result);
 
@@ -72,7 +71,7 @@ export const updateInfoUser = async (req, res) => {
         message: 'User not found',
       });
 
-    const [rows] = await pool.query('SELECT * FROM tblusuario WHERE Cedula = ?', [Cedula]);
+    const [rows] = await pool.query('SELECT * FROM tblusuario WHERE cedula = ?', [cedula]);
     res.json(rows[0]);
   } catch (error) {
     return res.status(500).json({
@@ -84,7 +83,7 @@ export const updateInfoUser = async (req, res) => {
 // Función para eliminar toda la información relacionada con el usuario
 export const deleteUser = async (req, res) => {
   try {
-    const [result] = await pool.query('DELETE FROM tblusuario WHERE Cedula = ?', [req.params.id]);
+    const [result] = await pool.query('DELETE FROM tblusuario WHERE cedula = ?', [req.params.id]);
     console.log(result);
 
     if (result.affectedRows <= 0)

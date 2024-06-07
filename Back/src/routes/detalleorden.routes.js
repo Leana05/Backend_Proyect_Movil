@@ -6,8 +6,8 @@ import {
 
 const router = Router();
 
-router.get('/DetalleOrden/:Cedula', getDetalleOrden);
+router.get('/DetalleOrden/:cedula', getDetalleOrden);
 
-router.get('/DetOrden/:IdDetOrden', getDetOrden);
+router.get('/DetOrden/:idDetOrden', getDetOrden);
 
 export default router;

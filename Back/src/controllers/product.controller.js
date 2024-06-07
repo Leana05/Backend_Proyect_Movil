@@ -18,7 +18,7 @@ export const getProductos = async (req, res) => {
 export const getProducto = async (req, res) => {
     try {
         console.log(req.params.id) //me devuelve el id que consultaron en la url
-        const [rows] = await pool.query('SELECT * FROM tblproducto WHERE IdProducto = ?', [req.params.id])
+        const [rows] = await pool.query('SELECT * FROM tblproducto WHERE idProducto = ?', [req.params.id])
 
         if (rows.length <= 0)
             return res.status(404).json({
@@ -35,21 +35,21 @@ export const getProducto = async (req, res) => {
 
 // Con esta función podemos agregar un producto
 export const createNewProducto = async (req, res) => {
-    const { Nombre, Descripción, Precio, Stock, Foto, IdCategoria } = req.body;
+    const { nombre, descripcion, precio, stock, foto, idCategoria } = req.body;
     try {
         const [rows] = await pool.query(
-            'INSERT INTO tblproducto (Nombre, Descripción, Precio, Stock, Foto, IdCategoria) VALUES (?, ?, ?, ?, ?, ?)',
-            [Nombre, Descripción, Precio, Stock, Foto, IdCategoria]
+            'INSERT INTO tblproducto (nombre, descripcion, precio, stock, foto, idCategoria) VALUES (?, ?, ?, ?, ?, ?)',
+            [nombre, descripcion, precio, stock, foto, idCategoria]
         );
 
         res.send({
-            IdProducto: rows.insertId,
-            Nombre, 
-            Descripción, 
-            Precio, 
-            Stock, 
-            Foto, 
-            IdCategoria
+            idProducto: rows.insertId,
+            nombre, 
+            descripcion, 
+            precio, 
+            stock, 
+            foto, 
+            idCategoria
         });
 
     } catch (error) {
@@ -61,13 +61,13 @@ export const createNewProducto = async (req, res) => {
 
 // Esta función nos permite actualizar la información de un producto
 export const updateProducto = async (req, res) => {
-    const {IdProducto} = req.params;
-    console.log(IdProducto)
-    const { Nombre, Descripción, Precio, Stock, Foto, IdCategoria } = req.body;
+    const {idProducto} = req.params;
+    console.log(idProducto)
+    const { nombre, descripcion, precio, stock, foto, idCategoria } = req.body;
     try {
         const [result] = await pool.query(
-            'UPDATE tblproducto SET Nombre = IFNULL(?, Nombre), Descripción = IFNULL(?, Descripción), Precio = IFNULL(?, Precio), Stock = IFNULL(?, Stock), Foto = IFNULL(?, Foto), IdCategoria = IFNULL(?, IdCategoria) WHERE IdProducto = ?',
-            [Nombre, Descripción, Precio, Stock, Foto, IdCategoria, IdProducto]
+            'UPDATE tblproducto SET Nombre = IFNULL(?, Nombre), descripcion = IFNULL(?, descripcion), precio = IFNULL(?, precio), stock = IFNULL(?, stock), foto = IFNULL(?, foto), idCategoria = IFNULL(?, idCategoria) WHERE idProducto = ?',
+            [Nombre, descripcion, precio, stock, foto, idCategoria, idProducto]
         );
 
         if (result.affectedRows === 0)
@@ -75,7 +75,7 @@ export const updateProducto = async (req, res) => {
                 message: 'Product not found',
             });
 
-        const [rows] = await pool.query('SELECT * FROM tblproducto WHERE IdProducto = ?', [IdProducto]);
+        const [rows] = await pool.query('SELECT * FROM tblproducto WHERE idProducto = ?', [idProducto]);
         res.json(rows[0]);
     } catch (error) {
         return res.status(500).json({
@@ -88,8 +88,8 @@ export const updateProducto = async (req, res) => {
 // Esta función nos permite eliminar un producto
 export const deleteMascota = async (req, res) => {
     try {
-        const [result] = await pool.query('DELETE FROM tblproducto WHERE IdProducto = ?', [
-            (req.params.IdProducto),
+        const [result] = await pool.query('DELETE FROM tblproducto WHERE idProducto = ?', [
+            (req.params.idProducto),
         ]);
         console.log(result);
 

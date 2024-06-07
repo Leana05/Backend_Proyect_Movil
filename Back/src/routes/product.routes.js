@@ -15,8 +15,8 @@ router.get('/productos/:id', getProducto);
 
 router.post('/newproducto', createNewProducto);
 
-router.patch('/producto/:IdProducto', updateProducto);
+router.patch('/producto/:idProducto', updateProducto);
 
-router.delete('/delProd/:IdProducto', deleteMascota);
+router.delete('/delProd/:idProducto', deleteMascota);
 
 export default router;
