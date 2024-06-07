@@ -11,7 +11,14 @@ import validationRoutes from './routes/validaciones.routes.js'
 
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:8081' }));
+app.use(
+    cors({
+        origin: 'http://localhost:8081',
+        methods: 'GET, POST, PUT, DELETE, OPTION, PATCH',
+        allowedHeaders: 'Content-Type, Authorization',
+        optionsSuccessStatus: 204,
+    })
+);
 app.use(express.json()); //Nos ayuda a tranformar las solicitudes a Json
 
 app.use('/SignUp', userRoutes);
