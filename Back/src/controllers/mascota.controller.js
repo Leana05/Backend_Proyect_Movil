@@ -1,6 +1,5 @@
 import { pool } from '../database/db.js';
 
-
 // Consultar todas las mascotas registradas
 export const getMascotas = async (req, res) => {
     try {
@@ -17,8 +16,7 @@ export const getMascotas = async (req, res) => {
 // Consultar la información de una mascota
 export const getMascota = async (req, res) => {
     try{
-    console.log(req.params.id) //me devuelve el id que consultaron en la url
-    const [rows] = await pool.query('SELECT m.* FROM tblmascota m INNER JOIN tblusuario u ON u.cedula = m.cedula WHERE m.cedula = ?', [req.params.id])
+    const [rows] = await pool.query('SELECT * FROM tblmascota WHERE cedula = ?', [req.params.cedula]);
     
     if (rows.length <= 0)
         return res.status(404).json({
@@ -60,12 +58,10 @@ export const createNewMascota = async (req, res) => {
     }
 };
 
-
 // Esta función nos permite eliminar una mascota con su id y la cedula del cliente
 export const deleteMascota = async (req, res) => {
     try {
-        const [result] = await pool.query('DELETE FROM tblmascota WHERE cedula = ? AND IdMascota = ?', [
-            (req.params.id),
+        const [result] = await pool.query('DELETE FROM tblmascota WHERE idMascota = ?', [
             (req.params.idMascota)
         ]);
         console.log(result);

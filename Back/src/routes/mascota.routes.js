@@ -10,10 +10,10 @@ const router = Router();
 
 router.get('/mascotas', getMascotas);
 
-router.get('/mascota/:id', getMascota);
+router.get('/mascota/:cedula', getMascota);
 
 router.post('/mascota', createNewMascota);
 
-router.delete('/delete/mascota/:id/:idMascota', deleteMascota);
+router.delete('/delete/mascota/:idMascota', deleteMascota);
 
 export default router;

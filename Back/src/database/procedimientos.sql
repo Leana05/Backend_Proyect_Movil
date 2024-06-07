@@ -22,6 +22,3 @@ BEGIN
 END;
 //
 DELIMITER ;
-
-CALL spInsertUsuario(11, 'Juan', 'Perez', '1985-04-15', 'Calle Falsa 123', 1234567890, 'juan.perez@example.com', 'password123');
-
