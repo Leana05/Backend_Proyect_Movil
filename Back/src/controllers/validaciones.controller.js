@@ -4,7 +4,6 @@ import { pool } from '../database/db.js';
 export const getValUser = async (req, res) => {
     const {correo} = req.params
     const {contrasena} = req. params
-    console.log(correo,contrasena)
     try {
         const [rows] = await pool.query('SELECT cedula FROM tblUsuario WHERE correo = ? AND contrasena = ?', [
           correo,
