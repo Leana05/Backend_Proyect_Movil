@@ -1,20 +1,5 @@
 import { pool } from '../database/db.js';
 
-
-// Consultar todos carritos de un usuario
-export const getCarritos = async (req, res) => {
-    try {
-        const [rows] = await pool.query('SELECT car.* FROM tblCarrito car INNER JOIN tblUsuario us ON us.cedula = car.cedula WHERE us.cedula = ?', [req.params.cedula]);
-        res.json(rows);
-    } catch (error) {
-        return res.status(500).json({
-            message: 'No se encontró carrito de compras',
-        });
-    }
-};
-
-
-
 // Esta función nos permite eliminar un carrito
 export const deleteCarrito = async (req, res) => {
     try {
@@ -35,3 +20,29 @@ export const deleteCarrito = async (req, res) => {
         });
     }
 };
+
+
+export const postDetCarrito = async (req, res) => {
+    const { cantidad, cedula, idProducto } = req.body;
+    try {
+        const cantidad = 1;
+        const [rows] = await pool.query(
+            'INSERT INTO tblDetalleCarrito (cantidad, cedula, idProducto) VALUES (?, ?, ?)',
+            [cantidad, cedula, idProducto]
+        );
+
+        res.send({
+            id: rows.insertId,
+            cantidad,
+            cedula,
+            idProducto
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Something goes wrong',
+        });
+    }
+};
+
+

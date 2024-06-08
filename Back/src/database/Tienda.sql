@@ -78,8 +78,8 @@ CREATE TABLE tblDetalleCarrito
 (
 	idDetCarrito int AUTO_INCREMENT PRIMARY KEY,
 	cantidad int NOT NULL,
-	idCarrito int NOT NULL,
+	cedula int NOT NULL,
 	idProducto int NOT NULL,
-	FOREIGN KEY (idCarrito) REFERENCES tblCarrito (idCarrito) ON DELETE NO ACTION,
+	FOREIGN KEY (cedula) REFERENCES tblUsuario (cedula) ON DELETE NO ACTION,
 	FOREIGN KEY (idProducto) REFERENCES tblProducto (idProducto) ON DELETE CASCADE
 );
