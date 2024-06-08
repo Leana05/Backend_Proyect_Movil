@@ -24,10 +24,10 @@ app.use(express.json()); //Nos ayuda a tranformar las solicitudes a Json
 app.use('/SignUp', userRoutes);
 app.use('/Pets',mascotaRoutes);
 app.use('/Orden',orderRoutes);
-app.use(detCarritoRoutes);
+app.use('/detCar', detCarritoRoutes);
 app.use('/Shop',productoRoutes);
 app.use('/Cart',detOrdenRoutes);
-app.use(carritoRoutes);
+app.use('/Car',carritoRoutes);
 app.use('/validation',validationRoutes)
 
 app.use((req, res, next) => {

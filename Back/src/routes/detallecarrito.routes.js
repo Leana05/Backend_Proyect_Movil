@@ -3,7 +3,7 @@ import { getDetCarrito, updateDetCarrito, deleteDetCarrito } from '../controller
 
 const router = Router();
 
-router.get('/login/det/:idDetCarrito', getDetCarrito);
+router.get('/login/det/:cedula', getDetCarrito);
 
 router.patch('/login/det/:idDetCarrito', updateDetCarrito);
 

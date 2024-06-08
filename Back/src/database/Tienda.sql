@@ -36,15 +36,6 @@ CREATE TABLE tblMascota
 	FOREIGN KEY (cedula) REFERENCES tblUsuario (cedula) ON DELETE CASCADE
 );
 
-CREATE TABLE tblOrden
-(
-	idOrden int AUTO_INCREMENT PRIMARY KEY,
-	fechaOrden varchar(20) NOT NULL,
-	total numeric(18,0) NOT NULL,
-	cedula int NOT NULL,
-	FOREIGN KEY (cedula) REFERENCES tblUsuario (cedula) ON DELETE CASCADE
-);
-
 CREATE TABLE tblCategoria
 (
 	idCategoria int AUTO_INCREMENT PRIMARY KEY,
@@ -63,23 +54,12 @@ CREATE TABLE tblProducto
 	FOREIGN KEY (idCategoria) REFERENCES tblCategoria (idCategoria)
 );
 
-CREATE TABLE tblDetalleOrden
-(
-	idDetOrden int AUTO_INCREMENT PRIMARY KEY,
-	cantidad int NOT NULL,
-	precio numeric(18,0) NOT NULL,
-	idOrden int NOT NULL,
-	idProducto int NOT NULL,
-	FOREIGN KEY (idOrden) REFERENCES tblOrden (idOrden) ON DELETE NO ACTION,
-	FOREIGN KEY (idProducto) REFERENCES tblProducto (idProducto) ON DELETE CASCADE
-);
-
 CREATE TABLE tblDetalleCarrito
 (
 	idDetCarrito int AUTO_INCREMENT PRIMARY KEY,
 	cantidad int NOT NULL,
-	idCarrito int NOT NULL,
+	cedula int NOT NULL,
 	idProducto int NOT NULL,
-	FOREIGN KEY (idCarrito) REFERENCES tblCarrito (idCarrito) ON DELETE NO ACTION,
+	FOREIGN KEY (cedula) REFERENCES tblUsuario (cedula) ON DELETE NO ACTION,
 	FOREIGN KEY (idProducto) REFERENCES tblProducto (idProducto) ON DELETE CASCADE
 );

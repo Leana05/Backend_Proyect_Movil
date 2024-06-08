@@ -3,8 +3,8 @@ import { pool } from "../database/db.js";
 // Consultar la información de un detalle de carrito
 export const getDetCarrito = async (req, res) => {
     try{
-    console.log(req.params.idDetCarrito); //me devuelve el id que consultaron en la url
-    const [rows] = await pool.query('SELECT * FROM tbldetallecarrito WHERE idDetCarrito = ?', [req.params.idDetCarrito]);
+    console.log(req.params.cedula); //me devuelve el id que consultaron en la url
+        const [rows] = await pool.query('SELECT p.nombre, dc.cantidad, p.precio FROM tbldetallecarrito dc INNER JOIN tblproducto p ON p.idProducto = dc.idProducto INNER JOIN tblusuario us ON us.cedula = dc.cedula WHERE us.cedula = ?; ', [req.params.cedula]);
     
     if (rows.length <= 0)
         return res.status(404).json({

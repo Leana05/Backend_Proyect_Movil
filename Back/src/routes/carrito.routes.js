@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { getCarritos, deleteCarrito } from '../controllers/carrito.controller.js';
+import { deleteCarrito, postDetCarrito } from '../controllers/carrito.controller.js';
 
 const router = Router();
 
-router.get('/Carritos/:cedula', getCarritos);
-
 router.delete('/DeleteC/:cedula', deleteCarrito);
+router.post('/Add/carrito', postDetCarrito);
+
 
 export default router;
